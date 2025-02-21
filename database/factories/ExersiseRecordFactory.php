@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\ExersiseRecord;
+use App\Models\Treatment;
 
 class ExersiseRecordFactory extends Factory
 {
@@ -21,7 +22,7 @@ class ExersiseRecordFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'treatment_id' => Treatment::factory(),
         ];
     }
 }

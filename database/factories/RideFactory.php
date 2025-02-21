@@ -5,7 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Booking;
+use App\Models\Member;
 use App\Models\Ride;
+use App\Models\User;
 
 class RideFactory extends Factory
 {
@@ -23,7 +25,9 @@ class RideFactory extends Factory
     {
         return [
             'columns' => Booking::factory()->create()->columns,
-            'relations' => fake()->word(),
+            'booking_id' => Booking::factory(),
+            'member_id' => Member::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

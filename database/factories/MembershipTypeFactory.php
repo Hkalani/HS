@@ -22,7 +22,6 @@ class MembershipTypeFactory extends Factory
     {
         return [
             'columns' => fake()->word(),
-            'relations' => fake()->word(),
         ];
     }
 }

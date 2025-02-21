@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Schedule;
 use App\Models\StaffTimeBlock;
 
 class StaffTimeBlockFactory extends Factory
@@ -21,7 +22,7 @@ class StaffTimeBlockFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'schedule_id' => Schedule::factory(),
         ];
     }
 }

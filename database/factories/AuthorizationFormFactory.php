@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\AuthorizationForm;
+use App\Models\Member;
 
 class AuthorizationFormFactory extends Factory
 {
@@ -21,7 +22,7 @@ class AuthorizationFormFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'member_id' => Member::factory(),
         ];
     }
 }

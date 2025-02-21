@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class YearlyBillingTotal extends Model
 {
@@ -15,7 +16,7 @@ class YearlyBillingTotal extends Model
      * @var array
      */
     protected $fillable = [
-        'relations',
+        'member_id',
     ];
 
     /**
@@ -25,5 +26,11 @@ class YearlyBillingTotal extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'member_id' => 'integer',
     ];
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
 }

@@ -21,7 +21,7 @@ class ServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            //
         ];
     }
 }

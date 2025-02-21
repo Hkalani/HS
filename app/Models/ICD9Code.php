@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ICD9Code extends Model
 {
@@ -15,7 +16,7 @@ class ICD9Code extends Model
      * @var array
      */
     protected $fillable = [
-        'relations',
+        'service_id',
     ];
 
     /**
@@ -25,5 +26,11 @@ class ICD9Code extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'service_id' => 'integer',
     ];
+
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

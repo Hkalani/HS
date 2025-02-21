@@ -17,7 +17,7 @@ class Profile extends Model
      */
     protected $fillable = [
         'columns',
-        'relations',
+        'user_id',
     ];
 
     /**
@@ -28,7 +28,13 @@ class Profile extends Model
     protected $casts = [
         'id' => 'integer',
         'columns' => 'date',
+        'user_id' => 'integer',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function columns(): BelongsTo
     {

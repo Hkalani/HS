@@ -23,7 +23,6 @@ class MemberFactory extends Factory
     {
         return [
             'columns' => Profile::factory()->create()->columns,
-            'relations' => fake()->word(),
         ];
     }
 }

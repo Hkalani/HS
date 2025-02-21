@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MembershipType extends Model
 {
@@ -16,7 +17,6 @@ class MembershipType extends Model
      */
     protected $fillable = [
         'columns',
-        'relations',
     ];
 
     /**
@@ -27,4 +27,9 @@ class MembershipType extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(Member::class);
+    }
 }

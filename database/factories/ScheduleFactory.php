@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Schedule;
+use App\Models\User;
 
 class ScheduleFactory extends Factory
 {
@@ -21,7 +22,7 @@ class ScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'user_id' => User::factory(),
         ];
     }
 }

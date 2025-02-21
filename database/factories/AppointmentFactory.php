@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Appointment;
 use App\Models\Booking;
+use App\Models\Member;
+use App\Models\User;
 
 class AppointmentFactory extends Factory
 {
@@ -23,7 +25,9 @@ class AppointmentFactory extends Factory
     {
         return [
             'columns' => Booking::factory()->create()->columns,
-            'relations' => fake()->word(),
+            'booking_id' => Booking::factory(),
+            'member_id' => Member::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

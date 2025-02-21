@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Booking extends Model
 {
@@ -17,7 +18,7 @@ class Booking extends Model
      */
     protected $fillable = [
         'columns',
-        'relations',
+        'user_id',
     ];
 
     /**
@@ -27,10 +28,26 @@ class Booking extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'user_id' => 'integer',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function columns(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function appointments(): BelongsToMany
+    {
+        return $this->belongsToMany(Appointment::class);
+    }
+
+    public function rides(): BelongsToMany
+    {
+        return $this->belongsToMany(Ride::class);
     }
 }

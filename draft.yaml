@@ -7,7 +7,7 @@ models:
       sex: string:nullable
       dob: date:nullable
       user_id: foreign:users:nullable
-    relations:
+    relationships:
       belongsTo: User
 
   Member:
@@ -27,23 +27,23 @@ models:
       emr_name: string:nullable
       emr_relationship: string:nullable
       emr_phone: string:nullable
-    relations:
-      hasMany: [AuthorizationForm, YearlyBillingTotal, PatientBilling, ProgressNote, Treatment, Appointment, Ride]
+    relationships:
+      belongsToMany: AuthorizationForm, YearlyBillingTotal, PatientBilling, ProgressNote, Treatment, Appointment, Ride
 
   MembershipType:
     columns:
       name: string
-    relations:
-      hasMany: Member
+    relationships:
+      belongsToMany: Member
 
   Booking:
     columns:
       user_id: foreign:users
       status: enum:pending,scheduled,completed,cancelled
       notes: text:nullable
-    relations:
+    relationships:
       belongsTo: User
-      hasMany: [Appointment, Ride]
+      belongsToMany: Appointment, Ride
 
   Appointment:
     columns:
@@ -56,8 +56,8 @@ models:
       duration_minutes: integer:nullable
       location: string:nullable
       notes: text:nullable
-    relations:
-      belongsTo: [Booking, Member, User]
+    relationships:
+      belongsTo: Booking, Member, User
 
   Ride:
     columns:
@@ -70,53 +70,53 @@ models:
       return_pickup_time: datetime:nullable
       driver_id: foreign:users
       status: enum:pending,in_progress,completed,cancelled
-    relations:
-      belongsTo: [Booking, Member, User]
+    relationships:
+      belongsTo: Booking, Member, User
+
+
 
   AuthorizationForm:
-    relations:
+    relationships:
       belongsTo: Member
 
   YearlyBillingTotal:
-    relations:
+    relationships:
       belongsTo: Member
 
   PatientBilling:
-    relations:
+    relationships:
       belongsTo: Member
 
   Service:
-    relations:
-      hasMany: ICD9Code
+    relationships:
+      belongsToMany: ICD9Code
 
   ICD9Code:
-    relations:
+    relationships:
       belongsTo: Service
 
   ProgressNote:
-    relations:
+    relationships:
       belongsTo: Member
 
   Treatment:
-    relations:
+    relationships:
       belongsTo: Member
-      hasMany: [ExersiseChart, ExersiseRecord]
+      belongsToMany: ExersiseChart, ExersiseRecord
 
   ExersiseChart:
-    relations:
+    relationships:
       belongsTo: Treatment
 
-
-
   ExersiseRecord:
-    relations:
+    relationships:
       belongsTo: Treatment
 
   Schedule:
-    relations:
+    relationships:
       belongsTo: User
-      hasMany: StaffTimeBlock
+      belongsToMany: StaffTimeBlock
 
   StaffTimeBlock:
-    relations:
+    relationships:
       belongsTo: Schedule

@@ -23,7 +23,7 @@ class ProfileFactory extends Factory
     {
         return [
             'columns' => User::factory()->create()->columns,
-            'relations' => fake()->word(),
+            'user_id' => User::factory(),
         ];
     }
 }

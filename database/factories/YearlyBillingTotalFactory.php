@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Member;
 use App\Models\YearlyBillingTotal;
 
 class YearlyBillingTotalFactory extends Factory
@@ -21,7 +22,7 @@ class YearlyBillingTotalFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'member_id' => Member::factory(),
         ];
     }
 }

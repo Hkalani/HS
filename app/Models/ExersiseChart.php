@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ExersiseChart extends Model
 {
@@ -15,7 +16,7 @@ class ExersiseChart extends Model
      * @var array
      */
     protected $fillable = [
-        'relations',
+        'treatment_id',
     ];
 
     /**
@@ -25,5 +26,11 @@ class ExersiseChart extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'treatment_id' => 'integer',
     ];
+
+    public function treatment(): BelongsTo
+    {
+        return $this->belongsTo(Treatment::class);
+    }
 }

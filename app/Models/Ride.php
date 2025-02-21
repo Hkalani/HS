@@ -17,7 +17,9 @@ class Ride extends Model
      */
     protected $fillable = [
         'columns',
-        'relations',
+        'booking_id',
+        'member_id',
+        'user_id',
     ];
 
     /**
@@ -27,7 +29,25 @@ class Ride extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'booking_id' => 'integer',
+        'member_id' => 'integer',
+        'user_id' => 'integer',
     ];
+
+    public function booking(): BelongsTo
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function columns(): BelongsTo
     {

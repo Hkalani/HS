@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\ICD9Code;
+use App\Models\Service;
 
 class ICD9CodeFactory extends Factory
 {
@@ -21,7 +22,7 @@ class ICD9CodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'relations' => fake()->word(),
+            'service_id' => Service::factory(),
         ];
     }
 }
