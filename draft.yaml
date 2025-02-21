@@ -1,0 +1,122 @@
+models:
+  Profile:
+    columns:
+      first_name: string
+      middle_name: string:nullable
+      last_name: string
+      sex: string:nullable
+      dob: date:nullable
+      user_id: foreign:users:nullable
+    relations:
+      belongsTo: User
+
+  Member:
+    columns:
+      profile_id: foreign:profiles
+      user_id: foreign:users:nullable
+      membership_type_id: foreign:membership_types
+      insurance_type: string:nullable
+      membership_start_date: date:nullable
+      membership_end_date: date:nullable
+      notes: text:nullable
+      street: string
+      city: string
+      state: string
+      zip_code: string
+      phone: string
+      emr_name: string:nullable
+      emr_relationship: string:nullable
+      emr_phone: string:nullable
+    relations:
+      hasMany: [AuthorizationForm, YearlyBillingTotal, PatientBilling, ProgressNote, Treatment, Appointment, Ride]
+
+  MembershipType:
+    columns:
+      name: string
+    relations:
+      hasMany: Member
+
+  Booking:
+    columns:
+      user_id: foreign:users
+      status: enum:pending,scheduled,completed,cancelled
+      notes: text:nullable
+    relations:
+      belongsTo: User
+      hasMany: [Appointment, Ride]
+
+  Appointment:
+    columns:
+      booking_id: foreign:bookings
+      member_id: foreign:members
+      staff_id: foreign:users
+      appointment_type: enum:pt,ac,mt
+      appointment_date_time: datetime
+      status: enum:scheduled,completed,cancelled
+      duration_minutes: integer:nullable
+      location: string:nullable
+      notes: text:nullable
+    relations:
+      belongsTo: [Booking, Member, User]
+
+  Ride:
+    columns:
+      booking_id: foreign:bookings
+      member_id: foreign:members
+      pickup_location: string
+      dropoff_location: string
+      pickup_time: datetime
+      return_ride: boolean:default(false)
+      return_pickup_time: datetime:nullable
+      driver_id: foreign:users
+      status: enum:pending,in_progress,completed,cancelled
+    relations:
+      belongsTo: [Booking, Member, User]
+
+  AuthorizationForm:
+    relations:
+      belongsTo: Member
+
+  YearlyBillingTotal:
+    relations:
+      belongsTo: Member
+
+  PatientBilling:
+    relations:
+      belongsTo: Member
+
+  Service:
+    relations:
+      hasMany: ICD9Code
+
+  ICD9Code:
+    relations:
+      belongsTo: Service
+
+  ProgressNote:
+    relations:
+      belongsTo: Member
+
+  Treatment:
+    relations:
+      belongsTo: Member
+      hasMany: [ExersiseChart, ExersiseRecord]
+
+  ExersiseChart:
+    relations:
+      belongsTo: Treatment
+
+
+
+  ExersiseRecord:
+    relations:
+      belongsTo: Treatment
+
+  Schedule:
+    relations:
+      belongsTo: User
+      hasMany: StaffTimeBlock
+
+  StaffTimeBlock:
+    relations:
+      belongsTo: Schedule

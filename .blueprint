@@ -1,0 +1,71 @@
+created:
+    - database/factories/ProfileFactory.php
+    - database/factories/MemberFactory.php
+    - database/factories/MembershipTypeFactory.php
+    - database/factories/BookingFactory.php
+    - database/factories/AppointmentFactory.php
+    - database/factories/RideFactory.php
+    - database/factories/AuthorizationFormFactory.php
+    - database/factories/YearlyBillingTotalFactory.php
+    - database/factories/PatientBillingFactory.php
+    - database/factories/ServiceFactory.php
+    - database/factories/ICD9CodeFactory.php
+    - database/factories/ProgressNoteFactory.php
+    - database/factories/TreatmentFactory.php
+    - database/factories/ExersiseChartFactory.php
+    - database/factories/ExersiseRecordFactory.php
+    - database/factories/ScheduleFactory.php
+    - database/factories/StaffTimeBlockFactory.php
+    - database/migrations/2025_02_21_201923_create_profiles_table.php
+    - database/migrations/2025_02_21_201924_create_members_table.php
+    - database/migrations/2025_02_21_201925_create_membership_types_table.php
+    - database/migrations/2025_02_21_201926_create_bookings_table.php
+    - database/migrations/2025_02_21_201927_create_appointments_table.php
+    - database/migrations/2025_02_21_201928_create_rides_table.php
+    - database/migrations/2025_02_21_201929_create_authorization_forms_table.php
+    - database/migrations/2025_02_21_201930_create_yearly_billing_totals_table.php
+    - database/migrations/2025_02_21_201931_create_patient_billings_table.php
+    - database/migrations/2025_02_21_201932_create_services_table.php
+    - database/migrations/2025_02_21_201933_create_i_c_d9_codes_table.php
+    - database/migrations/2025_02_21_201934_create_progress_notes_table.php
+    - database/migrations/2025_02_21_201935_create_treatments_table.php
+    - database/migrations/2025_02_21_201936_create_exersise_charts_table.php
+    - database/migrations/2025_02_21_201937_create_exersise_records_table.php
+    - database/migrations/2025_02_21_201938_create_schedules_table.php
+    - database/migrations/2025_02_21_201939_create_staff_time_blocks_table.php
+    - app/Models/Profile.php
+    - app/Models/Member.php
+    - app/Models/MembershipType.php
+    - app/Models/Booking.php
+    - app/Models/Appointment.php
+    - app/Models/Ride.php
+    - app/Models/AuthorizationForm.php
+    - app/Models/YearlyBillingTotal.php
+    - app/Models/PatientBilling.php
+    - app/Models/Service.php
+    - app/Models/ICD9Code.php
+    - app/Models/ProgressNote.php
+    - app/Models/Treatment.php
+    - app/Models/ExersiseChart.php
+    - app/Models/ExersiseRecord.php
+    - app/Models/Schedule.php
+    - app/Models/StaffTimeBlock.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable', current_team_id: 'integer nullable', profile_photo_path: 'string nullable', two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', two_factor_confirmed_at: 'datetime nullable' }
+    Profile: { columns: { first_name: string, middle_name: 'string:nullable', last_name: string, sex: 'string:nullable', dob: 'date:nullable', user_id: 'foreign:users:nullable' }, relations: { belongsTo: User } }
+    Member: { columns: { profile_id: 'foreign:profiles', user_id: 'foreign:users:nullable', membership_type_id: 'foreign:membership_types', insurance_type: 'string:nullable', membership_start_date: 'date:nullable', membership_end_date: 'date:nullable', notes: 'text:nullable', street: string, city: string, state: string, zip_code: string, phone: string, emr_name: 'string:nullable', emr_relationship: 'string:nullable', emr_phone: 'string:nullable' }, relations: { hasMany: [AuthorizationForm, YearlyBillingTotal, PatientBilling, ProgressNote, Treatment, Appointment, Ride] } }
+    MembershipType: { columns: { name: string }, relations: { hasMany: Member } }
+    Booking: { columns: { user_id: 'foreign:users', status: 'enum:pending,scheduled,completed,cancelled', notes: 'text:nullable' }, relations: { belongsTo: User, hasMany: [Appointment, Ride] } }
+    Appointment: { columns: { booking_id: 'foreign:bookings', member_id: 'foreign:members', staff_id: 'foreign:users', appointment_type: 'enum:pt,ac,mt', appointment_date_time: datetime, status: 'enum:scheduled,completed,cancelled', duration_minutes: 'integer:nullable', location: 'string:nullable', notes: 'text:nullable' }, relations: { belongsTo: [Booking, Member, User] } }
+    Ride: { columns: { booking_id: 'foreign:bookings', member_id: 'foreign:members', pickup_location: string, dropoff_location: string, pickup_time: datetime, return_ride: 'boolean:default(false)', return_pickup_time: 'datetime:nullable', driver_id: 'foreign:users', status: 'enum:pending,in_progress,completed,cancelled' }, relations: { belongsTo: [Booking, Member, User] } }
+    AuthorizationForm: { relations: { belongsTo: Member } }
+    YearlyBillingTotal: { relations: { belongsTo: Member } }
+    PatientBilling: { relations: { belongsTo: Member } }
+    Service: { relations: { hasMany: ICD9Code } }
+    ICD9Code: { relations: { belongsTo: Service } }
+    ProgressNote: { relations: { belongsTo: Member } }
+    Treatment: { relations: { belongsTo: Member, hasMany: [ExersiseChart, ExersiseRecord] } }
+    ExersiseChart: { relations: { belongsTo: Treatment } }
+    ExersiseRecord: { relations: { belongsTo: Treatment } }
+    Schedule: { relations: { belongsTo: User, hasMany: StaffTimeBlock } }
+    StaffTimeBlock: { relations: { belongsTo: Schedule } }
