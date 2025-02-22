@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\;
 use App\Models\Booking;
-use App\Models\Member;
 use App\Models\Ride;
 use App\Models\User;
 
@@ -24,9 +24,16 @@ class RideFactory extends Factory
     public function definition(): array
     {
         return [
-            'columns' => Booking::factory()->create()->columns,
             'booking_id' => Booking::factory(),
-            'member_id' => Member::factory(),
+            'member_id' => ::factory(),
+            'pickup_location' => fake()->word(),
+            'dropoff_location' => fake()->word(),
+            'pickup_time' => fake()->dateTime(),
+            'return_ride' => fake()->boolean(),
+            'return_pickup_time' => fake()->dateTime(),
+            'driver_id' => fake()->word(),
+            'status' => fake()->randomElement(/** enum_attributes **/),
+            'ride_notes' => fake()->text(),
             'user_id' => User::factory(),
         ];
     }

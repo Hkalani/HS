@@ -21,7 +21,7 @@ class MembershipTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'columns' => fake()->word(),
+            'name' => fake()->name(),
         ];
     }
 }

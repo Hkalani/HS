@@ -22,6 +22,7 @@ class ScheduleFactory extends Factory
     public function definition(): array
     {
         return [
+            'schedule_date' => fake()->date(),
             'user_id' => User::factory(),
         ];
     }

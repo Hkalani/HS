@@ -22,6 +22,7 @@ class ProgressNoteFactory extends Factory
     public function definition(): array
     {
         return [
+            'notes' => fake()->text(),
             'member_id' => Member::factory(),
         ];
     }

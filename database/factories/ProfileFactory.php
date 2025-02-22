@@ -22,8 +22,15 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'columns' => User::factory()->create()->columns,
+            'first_name' => fake()->firstName(),
+            'middle_name' => fake()->word(),
+            'last_name' => fake()->lastName(),
+            'sex' => fake()->word(),
+            'dob' => fake()->date(),
             'user_id' => User::factory(),
+            'address' => fake()->word(),
+            'phone_number' => fake()->phoneNumber(),
+            'email' => fake()->safeEmail(),
         ];
     }
 }

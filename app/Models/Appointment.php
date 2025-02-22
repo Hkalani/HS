@@ -10,27 +10,12 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'columns',
-        'booking_id',
-        'member_id',
-        'user_id',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
         'booking_id' => 'integer',
         'member_id' => 'integer',
+        'staff_id' => 'integer',
+        'appointment_date_time' => 'datetime',
         'user_id' => 'integer',
     ];
 
@@ -47,10 +32,5 @@ class Appointment extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function columns(): BelongsTo
-    {
-        return $this->belongsTo(Booking::class);
     }
 }

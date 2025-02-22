@@ -22,8 +22,10 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            'columns' => User::factory()->create()->columns,
             'user_id' => User::factory(),
+            'status' => fake()->randomElement(/** enum_attributes **/),
+            'notes' => fake()->text(),
+            'booking_date_time' => fake()->dateTime(),
         ];
     }
 }

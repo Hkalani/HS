@@ -22,6 +22,9 @@ class StaffTimeBlockFactory extends Factory
     public function definition(): array
     {
         return [
+            'start_time' => fake()->dateTime(),
+            'end_time' => fake()->dateTime(),
+            'staff_notes' => fake()->text(),
             'schedule_id' => Schedule::factory(),
         ];
     }

@@ -4,29 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Member extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'columns',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
+        'user_id' => 'integer',
+        'membership_start_date' => 'date',
+        'membership_end_date' => 'date',
     ];
 
     public function authorizationForms(): BelongsToMany
@@ -62,10 +50,5 @@ class Member extends Model
     public function rides(): BelongsToMany
     {
         return $this->belongsToMany(Ride::class);
-    }
-
-    public function columns(): BelongsTo
-    {
-        return $this->belongsTo(Profile::class);
     }
 }

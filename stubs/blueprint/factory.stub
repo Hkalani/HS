@@ -1,20 +1,19 @@
 <?php
 
-namespace Database\Factories;
+namespace {{ namespace }};
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\ExersiseRecord;
-use App\Models\Treatment;
+use {{ namespacedModel }};
 
-class ExersiseRecordFactory extends Factory
+class {{ model }}Factory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ExersiseRecord::class;
+    protected $model = {{ model }}::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +21,7 @@ class ExersiseRecordFactory extends Factory
     public function definition(): array
     {
         return [
-            'treatment_id' => Treatment::factory(),
+            //
         ];
     }
 }

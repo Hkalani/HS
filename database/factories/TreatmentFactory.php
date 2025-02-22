@@ -22,6 +22,8 @@ class TreatmentFactory extends Factory
     public function definition(): array
     {
         return [
+            'treatment_type' => fake()->word(),
+            'notes' => fake()->text(),
             'member_id' => Member::factory(),
         ];
     }

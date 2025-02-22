@@ -10,27 +10,13 @@ class Ride extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'columns',
-        'booking_id',
-        'member_id',
-        'user_id',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
         'booking_id' => 'integer',
         'member_id' => 'integer',
+        'pickup_time' => 'datetime',
+        'return_ride' => 'boolean',
+        'return_pickup_time' => 'datetime',
         'user_id' => 'integer',
     ];
 
@@ -47,10 +33,5 @@ class Ride extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function columns(): BelongsTo
-    {
-        return $this->belongsTo(Booking::class);
     }
 }

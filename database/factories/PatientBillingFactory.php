@@ -22,6 +22,8 @@ class PatientBillingFactory extends Factory
     public function definition(): array
     {
         return [
+            'billing_address' => fake()->word(),
+            'amount_due' => fake()->randomFloat(0, 0, 9999999999.),
             'member_id' => Member::factory(),
         ];
     }
