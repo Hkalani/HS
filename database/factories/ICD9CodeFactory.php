@@ -22,7 +22,9 @@ class ICD9CodeFactory extends Factory
     public function definition(): array
     {
         return [
+            'code' => fake()->word(),
             'service_id' => Service::factory(),
+            'price' => fake()->randomFloat(0, 0, 9999999999.),
         ];
     }
 }

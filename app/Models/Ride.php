@@ -13,7 +13,7 @@ class Ride extends Model
     protected $casts = [
         'id' => 'integer',
         'booking_id' => 'integer',
-        'member_id' => 'integer',
+        'patient_id' => 'integer',
         'pickup_time' => 'datetime',
         'return_ride' => 'boolean',
         'return_pickup_time' => 'datetime',
@@ -25,9 +25,9 @@ class Ride extends Model
         return $this->belongsTo(Booking::class);
     }
 
-    public function member(): BelongsTo
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Patient::class);
     }
 
     public function user(): BelongsTo

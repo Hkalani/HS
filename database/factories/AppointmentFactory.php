@@ -25,15 +25,14 @@ class AppointmentFactory extends Factory
     {
         return [
             'booking_id' => Booking::factory(),
-            'member_id' => ::factory(),
+            'patient_id' => ::factory(),
             'staff_id' => fake()->randomNumber(),
-            'appointment_type' => fake()->randomElement(/** enum_attributes **/),
+            'appointment_type_id' => fake()->word(),
             'appointment_date_time' => fake()->dateTime(),
-            'status' => fake()->randomElement(/** enum_attributes **/),
+            'status_id' => fake()->word(),
             'duration_minutes' => fake()->numberBetween(-10000, 10000),
             'location' => fake()->word(),
             'notes' => fake()->text(),
-            'appointment_notes' => fake()->text(),
             'user_id' => User::factory(),
         ];
     }

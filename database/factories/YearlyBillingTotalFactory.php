@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Member;
+use App\Models\Patient;
 use App\Models\YearlyBillingTotal;
 
 class YearlyBillingTotalFactory extends Factory
@@ -24,7 +24,7 @@ class YearlyBillingTotalFactory extends Factory
         return [
             'year' => fake()->numberBetween(-10000, 10000),
             'amount_due' => fake()->randomFloat(0, 0, 9999999999.),
-            'member_id' => Member::factory(),
+            'patient_id' => Patient::factory(),
         ];
     }
 }

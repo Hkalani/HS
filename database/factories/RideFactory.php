@@ -25,14 +25,14 @@ class RideFactory extends Factory
     {
         return [
             'booking_id' => Booking::factory(),
-            'member_id' => ::factory(),
+            'patient_id' => ::factory(),
             'pickup_location' => fake()->word(),
             'dropoff_location' => fake()->word(),
             'pickup_time' => fake()->dateTime(),
             'return_ride' => fake()->boolean(),
             'return_pickup_time' => fake()->dateTime(),
             'driver_id' => fake()->word(),
-            'status' => fake()->randomElement(/** enum_attributes **/),
+            'status_id' => fake()->word(),
             'ride_notes' => fake()->text(),
             'user_id' => User::factory(),
         ];

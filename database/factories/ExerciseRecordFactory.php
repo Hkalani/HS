@@ -24,7 +24,7 @@ class ExerciseRecordFactory extends Factory
         return [
             'exercise_name' => fake()->word(),
             'duration_minutes' => fake()->numberBetween(-10000, 10000),
-            'intensity' => fake()->randomElement(/** enum_attributes **/),
+            'intensity_id' => fake()->word(),
             'treatment_id' => Treatment::factory(),
         ];
     }

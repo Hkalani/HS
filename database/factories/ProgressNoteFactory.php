@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Member;
+use App\Models\Patient;
 use App\Models\ProgressNote;
 
 class ProgressNoteFactory extends Factory
@@ -22,8 +22,9 @@ class ProgressNoteFactory extends Factory
     public function definition(): array
     {
         return [
+            'date' => fake()->date(),
             'notes' => fake()->text(),
-            'member_id' => Member::factory(),
+            'patient_id' => Patient::factory(),
         ];
     }
 }

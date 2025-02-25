@@ -13,11 +13,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $this->call([
+            MembershipTypeSeeder::class,
+            MembershipStatusSeeder::class,
+            StatusSeeder::class,
+            RoleSeeder::class,
+            SexSeeder::class,
+            InsuranceTypeSeeder::class,
+            AppointmentTypeSeeder::class,
+            IntensityLevelSeeder::class,
+        ]);
+
+
         // User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test@ex.com',
+            'password' => bcrypt('asdfasdf'),
         ]);
     }
 }

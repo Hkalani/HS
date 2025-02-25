@@ -13,7 +13,7 @@ class Appointment extends Model
     protected $casts = [
         'id' => 'integer',
         'booking_id' => 'integer',
-        'member_id' => 'integer',
+        'patient_id' => 'integer',
         'staff_id' => 'integer',
         'appointment_date_time' => 'datetime',
         'user_id' => 'integer',
@@ -24,9 +24,9 @@ class Appointment extends Model
         return $this->belongsTo(Booking::class);
     }
 
-    public function member(): BelongsTo
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Patient::class);
     }
 
     public function user(): BelongsTo

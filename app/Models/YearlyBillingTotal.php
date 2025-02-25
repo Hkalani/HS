@@ -13,11 +13,11 @@ class YearlyBillingTotal extends Model
     protected $casts = [
         'id' => 'integer',
         'amount_due' => 'decimal',
-        'member_id' => 'integer',
+        'patient_id' => 'integer',
     ];
 
-    public function member(): BelongsTo
+    public function patient(): BelongsTo
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Patient::class);
     }
 }

@@ -1,49 +1,52 @@
 models:
-  Profile:
+  Role:
+    name: string
+    type: string nullable
+    relationships:
+      hasMany: User
+
+  InsuranceType:
+    name: string
+    relationships:
+      hasMany: Patient
+
+  Sex:
+    name: string
+    relationships:
+      hasMany: Patient
+
+  Patient:
     first_name: string
     middle_name: string nullable
     last_name: string
-    sex: string nullable
+    sex: :sex
     dob: date nullable
     user_id: unsignedInteger nullable
-    address: string nullable
+    street_address: string nullable
+    city: string nullable
+    state: string nullable
+    zip_code: string nullable
     phone_number: string nullable
     email: string nullable
-    relationships:
-      belongsTo: User
-
-  Member:
-    profile_id: :profiles
-    user_id: unsignedInteger nullable
-    membership_type_id: :membership_types
-    insurance_type: string nullable
+    insurance_type_id: :insuranceType nullable
+    is_member:
+      boolean default: false
+    membership_type_id: unsignedInteger nullable
     membership_start_date: date nullable
     membership_end_date: date nullable
-    notes: text nullable
-    street: string
-    city: string
-    state: string
-    zip_code: string
-    phone: string
-    emr_name: string nullable
-    emr_relationship: string nullable
-    emr_phone: string nullable
-    emergency_contact_name: string nullable
-    emergency_contact_relationship: string nullable
-    emergency_contact_phone: string nullable
-    profile_picture: string nullable
-    membership_status: enum active, inactive, expired
+    membership_status_id: unsignedInteger
     relationships:
-      belongsToMany: AuthorizationForm, YearlyBillingTotal, PatientBilling, ProgressNote, Treatment, Appointment, Ride
+      belongsTo: User, Sex, InsuranceType, MembershipType, MemberStatus
+      hasMany: Billing, ProgressNote, ExerciseRecordChart, Appointment, Ride, AuthorizationForm, YearlyBillingTotal
 
   MembershipType:
     name: string
     relationships:
-      belongsToMany: Member
+      hasMany: Patient
 
   Booking:
     user_id: unsignedInteger
-    status: enum pending, scheduled, completed, cancelled
+    status_id: :status
     notes: text nullable
     booking_date_time: datetime
     relationships:
@@ -52,80 +55,91 @@ models:
 
   Appointment:
     booking_id: unsignedInteger
-    member_id: unsignedInteger
+    patient_id: unsignedInteger
     staff_id: unsignedInteger
-    appointment_type: enum pt, ac, mt
+    appointment_type_id: :appointment_types
     appointment_date_time: datetime
-    status: enum scheduled, completed, cancelled
+    status_id: :status
     duration_minutes: integer nullable
     location: string nullable
     notes: text nullable
-    appointment_notes: text nullable
     relationships:
-      belongsTo: Booking, Member, User
+      belongsTo: Booking, Patient, User
 
   Ride:
     booking_id: unsignedInteger
-    member_id: unsignedInteger
+    patient_id: unsignedInteger
     pickup_location: string
     dropoff_location: string
     pickup_time: datetime
     return_ride: boolean default false
     return_pickup_time: datetime nullable
     driver_id: :users
-    status: enum pending, in_progress, completed, cancelled
+    status_id: :status
     ride_notes: text nullable
     relationships:
-      belongsTo: Booking, Member, User
+      belongsTo: Booking, Patient, User
+
+  Billing:
+    patient_id: :patients
+    service_id: :services
+    icd9_code_id: :icd9_codes
+    price: decimal
+    medicare_flag: boolean default false
+    hmo_flag: boolean default false
+    amount_due: decimal
+    insurance_covered: boolean default false
+    status_id: :status
+    relationships:
+      belongsTo: Patient, Service, ICD9Code
+
+  ICD9Code:
+    code: string unique
+    service_id: :services
+    price: decimal
+    relationships:
+      belongsTo: Service
+      hasMany: Billing
+
+  Service:
+    name: string
+    description: text nullable
+    relationships:
+      hasMany: ICD9Code, Billing
 
   AuthorizationForm:
     notes: text nullable
     relationships:
-      belongsTo: Member
+      belongsTo: Patient
 
   YearlyBillingTotal:
     year: integer
     amount_due: decimal
     relationships:
-      belongsTo: Member
-
-  PatientBilling:
-    billing_address: string nullable
-    amount_due: decimal nullable
-    relationships:
-      belongsTo: Member
-
-  Service:
-    relationships:
-      belongsToMany: ICD9Code
-
-  ICD9Code:
-    relationships:
-      belongsTo: Service
+      belongsTo: Patient
 
   ProgressNote:
+    date: date
     notes: text nullable
     relationships:
-      belongsTo: Member
+      belongsTo: Patient
 
-  Treatment:
-    treatment_type: string nullable
-    notes: text nullable
-    relationships:
-      belongsTo: Member
-      belongsToMany: ExersiseChart, ExersiseRecord
-
-  ExerciseChart:
-    chart_name: string
-    relationships:
-      belongsTo: Treatment
-
-  ExerciseRecord:
+  ExerciseRecordChart:
+    name: string
+    diagnosis: string nullable
+    date_of_injury: date nullable
     exercise_name: string
     duration_minutes: integer
-    intensity: enum low, medium, high
+    intensity_id: :intensity_levels
+    icd9_code_id: :icd9_codes
+    notes: text nullable
     relationships:
-      belongsTo: Treatment
+      belongsTo: Patient
+
+  IntensityLevel:
+    name: string
+    relationships:
+      hasMany: ExerciseRecordChart
 
   Schedule:
     schedule_date: date
@@ -136,6 +150,23 @@ models:
   StaffTimeBlock:
     start_time: datetime
     end_time: datetime
+    staff_id: :user
     staff_notes: text nullable
     relationships:
       belongsTo: Schedule
+
+  Status:
+    name: string
+    category: string
+    relationships:
+      hasMany: Booking, Appointment, Ride
+
+  MemberStatus:
+    name: string
+    relationships:
+      hasMany: Patient
+
+  AppointmentType:
+    name: string
+    relationships:
+      hasMany: Appointment

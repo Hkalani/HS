@@ -40,7 +40,7 @@ class MemberFactory extends Factory
             'emergency_contact_relationship' => fake()->word(),
             'emergency_contact_phone' => fake()->word(),
             'profile_picture' => fake()->word(),
-            'membership_status' => fake()->randomElement(/** enum_attributes **/),
+            'membership_status_id' => fake()->word(),
         ];
     }
 }

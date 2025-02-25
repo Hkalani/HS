@@ -23,7 +23,7 @@ class BookingFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'status' => fake()->randomElement(/** enum_attributes **/),
+            'status_id' => fake()->word(),
             'notes' => fake()->text(),
             'booking_date_time' => fake()->dateTime(),
         ];
